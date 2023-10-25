@@ -76,7 +76,6 @@ function App() {
 
   const handleDragEnd = (cid, bid) => {
     let s_bIndex, s_cIndex, t_bIndex, t_cIndex;
-    console.log(cid,bid);
 
     s_bIndex = boards.findIndex(item => item.id === bid);
     if (s_bIndex < 0) return;
