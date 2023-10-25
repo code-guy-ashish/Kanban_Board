@@ -14,6 +14,9 @@ const Card = (props) => {
         title={props.card.title}
         descr={props.card.real_desc}
         date={props.card.date}
+        cardId={props.card?.id}
+        boardId={props.boardId}
+        editcard={props.editcard}
       />}
       <div className="card" draggable
         onDragEnd={(e) => props.handleDragEnd(props.card?.id, props.boardId)

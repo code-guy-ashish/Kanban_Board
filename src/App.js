@@ -13,17 +13,17 @@ function App() {
     bid: "",
   });
 
-  useEffect(()=>{
-    const local_boards=JSON.parse(localStorage.getItem("boards"));
-    if(local_boards.length!==0){
+  useEffect(() => {
+    const local_boards = JSON.parse(localStorage.getItem("boards"));
+    if (local_boards.length !== 0) {
       setBoards(local_boards);
     }
-  },[])
+  }, [])
 
 
-  useEffect(()=>{
-    localStorage.setItem("boards",JSON.stringify(boards));
-  },[boards])
+  useEffect(() => {
+    localStorage.setItem("boards", JSON.stringify(boards));
+  }, [boards])
 
 
   const addBoard = (title) => {
@@ -39,16 +39,19 @@ function App() {
     setBoards(tempBoards);
   };
 
+  const desc_shorthand = (description) => {
+      let desc_arr = description.split(" ");
+      let desc_arr_len = desc_arr.length;
+      if (desc_arr_len > 4)
+        description = desc_arr.slice(0, 4).join(" ") + '...';
+      if (description === "")
+        description = "No Description";
+
+      return description;
+  }
+
   const addCard = (title, bid, description, label, lab_col) => {
     let date = new Date();
-    let org_desc = description;
-    let desc_arr = description.split(" ");
-    let desc_arr_len = desc_arr.length;
-    if (desc_arr_len > 4)
-      description = desc_arr.slice(0, 4).join(" ") + '...';
-    if (description === "")
-      description = "No Description";
-
     const card = {
       id: Date.now() + Math.random(),
       title,
@@ -56,8 +59,8 @@ function App() {
       label_colors: lab_col,
       tasks: [],
       date: `${date.getDate()} ${['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'][date.getMonth()]},  ${date.getHours()}:${date.getMinutes()} ${date.getHours() < 12 ? 'AM' : 'PM'}`,
-      desc: description,
-      real_desc: org_desc,
+      desc: desc_shorthand(description),
+      real_desc: description,
     };
 
     const index = boards.findIndex(item => item.id === bid);
@@ -66,6 +69,20 @@ function App() {
     tempBoards[index].cards.push(card);
     setBoards(tempBoards);
   };
+
+  const editCardValues = (cid, bid, title, descc) => {
+    console.log(cid, bid, title, descc);
+    let b_index = boards.findIndex(item => item.id === bid);
+    let c_index = boards[b_index].cards?.findIndex(item => item.id === cid);
+
+    const tempBoards = [...boards];
+
+    tempBoards[b_index].cards[c_index].title = title;
+    tempBoards[b_index].cards[c_index].real_desc = descc;
+    tempBoards[b_index].cards[c_index].desc = desc_shorthand(descc);
+
+    setBoards(tempBoards);
+  }
 
   const handleDragEnter = (cid, bid) => {
     setTarget({
@@ -87,7 +104,7 @@ function App() {
     if (t_bIndex < 0) return;
 
     t_cIndex = boards[t_bIndex].cards?.findIndex(item => item.id === target.cid);
-    if(target.cid===null)t_cIndex=0;
+    if (target.cid === null) t_cIndex = 0;
     if (t_cIndex < 0) return;
 
     const tempBoards = [...boards];
@@ -130,6 +147,7 @@ function App() {
                 removeCard={removeCard}
                 handleDragEnter={handleDragEnter}
                 handleDragEnd={handleDragEnd}
+                editcard={editCardValues}
               />
             })
           }

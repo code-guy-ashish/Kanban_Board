@@ -32,6 +32,7 @@ const Board = (props) => {
               boardId={props.board?.id}
               handleDragEnter={props.handleDragEnter}
               handleDragEnd={props.handleDragEnd}
+              editcard={props.editcard}
             />
           })
         }
