@@ -9,7 +9,7 @@ const Board = (props) => {
       <div className="board_top">
         <p className="board_top_title">
           {props.board?.title}
-          <span>{` ${props.board?.cards?.length}`}</span>
+          <span className="taskcount">{`  Total Tasks:${props.board?.cards?.length}`}</span>
         </p>
         <Trash2 onClick={() => props.removeBoard(props.board?.id)} />
       </div>

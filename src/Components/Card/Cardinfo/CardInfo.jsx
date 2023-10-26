@@ -15,36 +15,39 @@ const CardInfo = (props) => {
       {
         edit ? (
           <form
-            className="edit_form"
+            className="edit_formcc"
             onSubmit={(event) => {
               event.preventDefault();
               setEdit(false);
               if (props.editcard) props.editcard(props.cardId, props.boardId, title, desc)
             }}>
 
-            <input type="text"
+            <input className="inputcc" type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <input type="textArea"
+            <textarea className="custom-scroll textareacc"
+              rows={10} 
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
             />
-            <button type="submit">Submit</button>
+            <button className="buttoncc" type="submit">Submit</button>
 
           </form>)
           : (
-            <div className="cardinfo">
-              <div className="cardtitle">
-                {props.title}
-                <span>
+            <div className="cardinfocc">
+              <div className="cardtitlecc">
+                <span className="titlecc">
+                  {props.title}
+                </span>
+                <span className="datecc">
                   {props.date}
                 </span>
               </div>
-              <div className="card_desc">
+              <div className="custom-scroll card_desc_infoplatecc">
                 {props.descr}
               </div>
-              <button onClick={() => setEdit(true)}>Edit</button>
+              <button className="buttoncc" onClick={() => setEdit(true)}>Edit</button>
             </div>)
       }
     </Modal>

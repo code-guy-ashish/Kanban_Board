@@ -49,7 +49,7 @@ const Card = (props) => {
         </div>
         <div className="card_footer">
           {
-            props.card?.date && (<p><Clock /> {props.card?.date}</p>)
+            props.card?.date && (<p><Clock /> <span className="card_date">{props.card?.date}</span></p>)
           }
         </div>
       </div>

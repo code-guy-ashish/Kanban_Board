@@ -6,7 +6,11 @@
     flex-direction: column;
     gap: 10px;
 }
-
+.card_date{
+    font-size: small;
+    text-align: center;
+    font-style: italic;
+}
 .card_top{
     display: flex;
     gap: 5px;
