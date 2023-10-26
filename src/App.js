@@ -58,7 +58,7 @@ function App() {
       labels: label === "" ? [] : label.split(/[ ,]+/),
       label_colors: lab_col,
       tasks: [],
-      date: `${date.getDate()} ${['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'][date.getMonth()]},  ${date.getHours()}:${date.getMinutes()} ${date.getHours() < 12 ? 'AM' : 'PM'}`,
+      date: `${String(date.getDate()).padStart(2,0)} ${['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'][date.getMonth()]},  ${String(date.getHours()).padStart(2,0)}:${String(date.getMinutes()).padStart(2,0)} ${date.getHours() < 12 ? 'AM' : 'PM'}`,
       desc: desc_shorthand(description),
       real_desc: description,
     };
