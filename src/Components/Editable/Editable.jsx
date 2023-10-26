@@ -45,7 +45,7 @@ const Editable = (props) => {
 
                         {
                             showCardInput ? <>
-                                <input type="textarea"
+                                <textarea className="editable_add_card custom-scroll"
                                     value={inputDesc}
                                     onChange={(e) => setDescValue(e.target.value)}
                                     placeholder="Enter Description" />

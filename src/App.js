@@ -55,7 +55,7 @@ function App() {
     const card = {
       id: Date.now() + Math.random(),
       title,
-      labels: label === "" ? [] : label.split(","),
+      labels: label === "" ? [] : label.split(/[ ,]+/),
       label_colors: lab_col,
       tasks: [],
       date: `${date.getDate()} ${['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'][date.getMonth()]},  ${date.getHours()}:${date.getMinutes()} ${date.getHours() < 12 ? 'AM' : 'PM'}`,
