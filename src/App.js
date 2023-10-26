@@ -40,25 +40,25 @@ function App() {
   };
 
   const desc_shorthand = (description) => {
-      let desc_arr = description.split(" ");
-      let desc_arr_len = desc_arr.length;
-      if (desc_arr_len > 4)
-        description = desc_arr.slice(0, 4).join(" ") + '...';
-      if (description === "")
-        description = "No Description";
+    let desc_arr = description.split(" ");
+    let desc_arr_len = desc_arr.length;
+    if (desc_arr_len > 4)
+      description = desc_arr.slice(0, 4).join(" ") + '...';
+    if (description === "")
+      description = "No Description";
 
-      return description;
+    return description;
   }
 
-  const addCard = (title, bid, description, label, lab_col) => {
+  const addCard = (title = "No title", bid, description, label, lab_col) => {
     let date = new Date();
     const card = {
       id: Date.now() + Math.random(),
-      title,
+      title: title ? title : "No Title",
       labels: label === "" ? [] : label.split(/[ ,]+/),
       label_colors: lab_col,
       tasks: [],
-      date: `${String(date.getDate()).padStart(2,0)} ${['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'][date.getMonth()]},  ${String(date.getHours()).padStart(2,0)}:${String(date.getMinutes()).padStart(2,0)} ${date.getHours() < 12 ? 'AM' : 'PM'}`,
+      date: `${String(date.getDate()).padStart(2, 0)} ${['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'][date.getMonth()]},  ${String(date.getHours()).padStart(2, 0)}:${String(date.getMinutes()).padStart(2, 0)} ${date.getHours() < 12 ? 'AM' : 'PM'}`,
       desc: desc_shorthand(description),
       real_desc: description,
     };
@@ -70,14 +70,21 @@ function App() {
     setBoards(tempBoards);
   };
 
-  const editCardValues = (cid, bid, title, descc) => {
-    console.log(cid, bid, title, descc);
+  const editCardValues = (cid, bid, title, descc, label) => {
     let b_index = boards.findIndex(item => item.id === bid);
     let c_index = boards[b_index].cards?.findIndex(item => item.id === cid);
-
+    const colors = ["#a8193d", "#4fcc25", "#1ebffa", "#8da377", "#9975bd", "#cf61a1", "#240959",];
+    let labels = label.split(/[ ,]+/);
+    if (labels[0] === '')
+      labels.pop();
     const tempBoards = [...boards];
 
     tempBoards[b_index].cards[c_index].title = title;
+    tempBoards[b_index].cards[c_index].title = title;
+    tempBoards[b_index].cards[c_index].labels = labels;
+    labels.forEach((e) => {
+        tempBoards[b_index].cards[c_index].label_colors.push(colors[Math.floor(Math.random() * colors.length)]);
+    })
     tempBoards[b_index].cards[c_index].real_desc = descc;
     tempBoards[b_index].cards[c_index].desc = desc_shorthand(descc);
 

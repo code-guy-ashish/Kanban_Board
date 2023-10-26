@@ -14,6 +14,7 @@ const Card = (props) => {
         title={props.card.title}
         descr={props.card.real_desc}
         date={props.card.date}
+        label={props.card.labels.join(",")}
         cardId={props.card?.id}
         boardId={props.boardId}
         editcard={props.editcard}
