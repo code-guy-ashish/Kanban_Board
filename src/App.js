@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     const local_boards = JSON.parse(localStorage.getItem("boards"));
-    if (local_boards.length !== 0) {
+    if (local_boards?.length !== 0) {
       setBoards(local_boards);
     }
   }, [])
@@ -145,7 +145,7 @@ function App() {
       <div className="app_outer">
         <div className="app_boards">
           {
-            boards.map((item) => {
+            boards?.map((item) => {
               return <Board
                 key={item.id}
                 board={item}
