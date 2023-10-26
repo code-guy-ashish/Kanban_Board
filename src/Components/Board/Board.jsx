@@ -5,7 +5,7 @@ import Editable from "../Editable/Editable";
 
 const Board = (props) => {
   return (
-    <div className="board">
+    <div  data-testid="boardid" className="board">
       <div className="board_top">
         <p className="board_top_title">
           {props.board?.title}

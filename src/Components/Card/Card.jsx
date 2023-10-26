@@ -8,7 +8,8 @@ const Card = (props) => {
 
   const [showModal, setShowModal] = useState(false)
   return (
-    <>
+    
+    <div data-testid="cardid">
       {showModal && <CardInfo
         onClose={() => setShowModal(false)}
         title={props.card.title}
@@ -54,7 +55,7 @@ const Card = (props) => {
           }
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

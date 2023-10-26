@@ -138,7 +138,7 @@ function App() {
 
 
   return (
-    <div className="app">
+    <div data-testid="App" className="app">
       <div className="app_navbar">
         <h2>Kanban Board</h2>
       </div>

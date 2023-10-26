@@ -10,7 +10,7 @@ const CardInfo = (props) => {
   const [label,setLabel]=useState(props.label);
 
   return (
-    <Modal onClose={() => props.onClose()}>
+    <Modal onClose={() => props.onClose()} >
       {
         edit ? (
           <form
