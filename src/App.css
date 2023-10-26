@@ -5,9 +5,9 @@
     padding: 0;
 }
 
-::-webkit-scrollbar {
-    visibility: hidden;
-}
+/* ::-webkit-scrollbar {
+    display: none;
+} */
 
 .custom-scroll::-webkit-scrollbar {
     width: 8px;
@@ -61,4 +61,40 @@
 
 .app_boards_board {
     width: 290px;
+}
+
+@media screen and (max-width: 500px) {
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .app_navbar>h2{
+        margin-right: 50    px;
+    }
+    .app{
+        /* border: 2px green solid; */
+        /* background-color: green; */
+        height: 100%;
+        width: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+    }
+    .app_outer{
+        height: 100%;
+        width: 100%;
+        /* border: 2px red solid; */
+        overflow: hidden;
+    }
+    .app_boards{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        /* background-color: red; */
+        padding-left: 35px;
+        padding-bottom: 30px;
+        height: fit-content;
+        /* border: 2px pink solid; */
+    }
+
 }

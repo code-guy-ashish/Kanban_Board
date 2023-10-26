@@ -77,3 +77,19 @@
     font-family: 'Poppins', sans-serif;
     font-size: 6vh;
   }
+
+
+  @media screen and (max-width: 500px) {
+      .cardinfocc{
+        height: fit-content;
+        width: fit-content;
+        padding-left: 20px;
+      }
+
+      .edit_formcc{
+        height: fit-content;
+        width: fit-content;
+      }
+
+
+  }
