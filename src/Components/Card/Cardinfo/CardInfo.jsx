@@ -22,7 +22,7 @@ const CardInfo = (props) => {
             }}>
 
             <input className="inputcc" type="text"
-              value={title}
+              value={title==="No Title"?"":title}
               placeholder="Title"
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -44,7 +44,7 @@ const CardInfo = (props) => {
             <div className="cardinfocc">
               <div className="cardtitlecc">
                 <span className="titlecc">
-                  {props.title}
+                  {title}
                 </span>
                 <span className="datecc">
                   {props.date}
@@ -52,7 +52,7 @@ const CardInfo = (props) => {
               </div>
               <div className="custom-scroll card_desc_infoplatecc">
               <span>Description : </span>
-                {props.descr}
+                {desc}
               </div>
               <div className="card_desc_infoplatecc">
               <span>Labels : </span>
