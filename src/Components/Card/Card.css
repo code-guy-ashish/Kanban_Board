@@ -74,4 +74,18 @@
     .card{
         width: 200px;
     }
+    .card_top svg{
+        opacity: 1;
+        border: 1px red solid;
+        height: 16px;
+        width: 16px;
+        padding: 7px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .card_top svg:hover{
+        background-color: red;
+        opacity: 1;
+
+    }
 }
