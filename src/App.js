@@ -13,8 +13,19 @@ function App() {
     bid: "",
   });
 
+  // useEffect(() => {
+  //   const local_boards = JSON.parse(localStorage.getItem("boards"));
+  //   if (local_boards?.length !== 0) {
+  //     setBoards(local_boards);
+  //   }
+  // }, [])
+
+
+  // useEffect(() => {
+  //   localStorage.setItem("boards", JSON.stringify(boards));
+  // }, [boards])
   useEffect(() => {
-    const local_boards = JSON.parse(localStorage.getItem("boards"));
+    const local_boards = JSON.parse(localStorage.getItem("boards") ? localStorage.getItem("boards") : "[]");
     if (local_boards?.length !== 0) {
       setBoards(local_boards);
     }
@@ -22,7 +33,7 @@ function App() {
 
 
   useEffect(() => {
-    localStorage.setItem("boards", JSON.stringify(boards));
+    localStorage.setItem("boards", boards.length !== 0 ? JSON.stringify(boards) : "[]");
   }, [boards])
 
 
@@ -83,7 +94,7 @@ function App() {
     tempBoards[b_index].cards[c_index].title = title;
     tempBoards[b_index].cards[c_index].labels = labels;
     labels.forEach((e) => {
-        tempBoards[b_index].cards[c_index].label_colors.push(colors[Math.floor(Math.random() * colors.length)]);
+      tempBoards[b_index].cards[c_index].label_colors.push(colors[Math.floor(Math.random() * colors.length)]);
     })
     tempBoards[b_index].cards[c_index].real_desc = descc;
     tempBoards[b_index].cards[c_index].desc = desc_shorthand(descc);
