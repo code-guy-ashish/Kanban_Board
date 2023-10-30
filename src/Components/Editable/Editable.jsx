@@ -23,7 +23,7 @@ const Editable = (props) => {
                             if (props.onSubmit) props.onSubmit(inputValue);
                             if (props.onCardSubmit) {
                                 if (inputLabel !== "")
-                                    inputLabel.split(",").forEach(() => {
+                                    inputLabel.split(/[ ,]+/).forEach((e) => {
                                         labelColor.push(colors[Math.floor(Math.random() * colors.length)])
                                     })
                                 props.onCardSubmit(inputValue, inputDesc, inputLabel, labelColor);

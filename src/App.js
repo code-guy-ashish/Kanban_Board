@@ -13,17 +13,8 @@ function App() {
     bid: "",
   });
 
-  // useEffect(() => {
-  //   const local_boards = JSON.parse(localStorage.getItem("boards"));
-  //   if (local_boards?.length !== 0) {
-  //     setBoards(local_boards);
-  //   }
-  // }, [])
+  const [c,setc]=useState("");
 
-
-  // useEffect(() => {
-  //   localStorage.setItem("boards", JSON.stringify(boards));
-  // }, [boards])
   useEffect(() => {
     const local_boards = JSON.parse(localStorage.getItem("boards") ? localStorage.getItem("boards") : "[]");
     if (local_boards?.length !== 0) {
@@ -36,6 +27,19 @@ function App() {
     localStorage.setItem("boards", boards.length !== 0 ? JSON.stringify(boards) : "[]");
   }, [boards])
 
+
+
+  const sortCards = () => {
+    const temp_board = [...boards];
+    temp_board.forEach((item) => {
+      let data = item.cards;
+      data.sort((a, b) => {
+        return a.t_stamp - b.t_stamp
+      })
+    })
+
+    setBoards(temp_board);
+  }
 
   const addBoard = (title) => {
     setBoards([...boards, {
@@ -70,6 +74,7 @@ function App() {
       label_colors: lab_col,
       tasks: [],
       date: `${String(date.getDate()).padStart(2, 0)} ${['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'][date.getMonth()]},  ${String(date.getHours()).padStart(2, 0)}:${String(date.getMinutes()).padStart(2, 0)} ${date.getHours() < 12 ? 'AM' : 'PM'}`,
+      t_stamp: new Date().getTime(),
       desc: desc_shorthand(description),
       real_desc: description,
     };
@@ -79,6 +84,7 @@ function App() {
     const tempBoards = [...boards];
     tempBoards[index].cards.push(card);
     setBoards(tempBoards);
+    sortCards();
   };
 
   const editCardValues = (cid, bid, title, descc, label) => {
@@ -102,6 +108,14 @@ function App() {
     setBoards(tempBoards);
   }
 
+  const vis_cid=(cid)=>{
+    console.log("cid",cid,typeof cid);
+    setTimeout(() => {
+      
+      setc(cid.toString());
+      console.log("statec",c);
+    }, 2000);
+  }
   const handleDragEnter = (cid, bid) => {
     setTarget({
       cid,
@@ -111,6 +125,8 @@ function App() {
 
   const handleDragEnd = (cid, bid) => {
     let s_bIndex, s_cIndex, t_bIndex, t_cIndex;
+    if(cid!==null)
+    document.getElementById(cid).style.opacity="1";
 
     s_bIndex = boards.findIndex(item => item.id === bid);
     if (s_bIndex < 0) return;
@@ -132,6 +148,8 @@ function App() {
     tempBoards[t_bIndex].cards.splice(t_cIndex, 0, tempCard);
 
     setBoards(tempBoards);
+    sortCards();
+
   }
 
   const removeCard = (cid, bid) => {
@@ -166,6 +184,7 @@ function App() {
                 handleDragEnter={handleDragEnter}
                 handleDragEnd={handleDragEnd}
                 editcard={editCardValues}
+                v={vis_cid}
               />
             })
           }

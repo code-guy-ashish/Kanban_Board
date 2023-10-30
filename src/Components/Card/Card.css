@@ -6,6 +6,10 @@
     flex-direction: column;
     gap: 10px;
 }
+.card:active{
+    /* cursor:grab; */
+    cursor: move;
+}
 .card_date{
     font-size: small;
     text-align: center;
@@ -19,6 +23,7 @@
 .card_top_labels{
     flex:1;
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
@@ -69,6 +74,18 @@
     color: gray;
     font-size: small;
 }
+.timestamp{
+    font-size: 10px;
+    color: gray;
+
+}
+
+.is-dragging {
+    scale: 0.9;
+    background: rgb(182, 178, 178);
+    
+  }
+
 
 @media screen and (max-width: 500px) {
     .card{

@@ -6,10 +6,12 @@ import { useState } from "react";
 
 const Card = (props) => {
 
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
   return (
-    
-    <div data-testid="cardid">
+
+    <div data-testid="cardid"
+      id={props.card.id}
+    >
       {showModal && <CardInfo
         onClose={() => setShowModal(false)}
         title={props.card.title}
@@ -21,10 +23,26 @@ const Card = (props) => {
         editcard={props.editcard}
       />}
       <div className="card" draggable
-        onDragEnd={(e) => props.handleDragEnd(props.card?.id, props.boardId)
+        onDragEnd={(e) => {
+          e.target.classList.remove("is-dragging");
+          props.handleDragEnd(props.card?.id, props.boardId)
         }
-        onDragEnter={(e) => props.handleDragEnter(props.card?.id, props.boardId)
         }
+
+        onDragEnter={(e) => {
+          props.handleDragEnter(props.card?.id, props.boardId)
+        }
+        }
+
+
+        onDragStart={(e) => {
+          console.log("Start",props.card?.id, props.boardId);
+          document.getElementById(props.card?.id).style.opacity = "0";
+          e.target.classList.add("is-dragging")
+        }}
+
+
+
         onClick={() => setShowModal(true)}
       >
 
@@ -52,6 +70,9 @@ const Card = (props) => {
         <div className="card_footer">
           {
             props.card?.date && (<p><Clock /> <span className="card_date">{props.card?.date}</span></p>)
+          }
+          {
+            <span className="timestamp">{props.card?.t_stamp}</span>
           }
         </div>
       </div>
