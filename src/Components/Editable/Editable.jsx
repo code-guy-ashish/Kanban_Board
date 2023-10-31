@@ -36,6 +36,7 @@ const Editable = (props) => {
                             setCardInput(false);
                         }}>
                         <input
+                            name="common_input"
                             autoFocus
                             type="text"
                             value={inputValue}
@@ -47,11 +48,13 @@ const Editable = (props) => {
                             showCardInput ? <>
                                 <textarea className="editable_add_card custom-scroll"
                                     value={inputDesc}
+                                    name="card_input_desc"
                                     onChange={(e) => setDescValue(e.target.value)}
                                     placeholder="Enter Description" />
 
                                 <input type="text"
                                     value={inputLabel}
+                                    name="card_input_labels"
                                     onChange={(e) => setLabelValue(e.target.value)}
                                     placeholder="Enter labels" />
                             </> : ""
