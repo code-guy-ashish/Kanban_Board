@@ -36,9 +36,11 @@ const Card = (props) => {
 
 
         onDragStart={(e) => {
-          console.log("Start",props.card?.id, props.boardId);
-          document.getElementById(props.card?.id).style.opacity = "0";
-          e.target.classList.add("is-dragging")
+
+          if (window.innerWidth > 500) {
+            document.getElementById(props.card?.id).style.opacity = "0";
+            e.target.classList.add("is-dragging")
+          }
         }}
 
 
