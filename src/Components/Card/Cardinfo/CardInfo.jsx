@@ -7,7 +7,7 @@ const CardInfo = (props) => {
   const [edit, setEdit] = useState(false);
   const [title, setTitle] = useState(props.title);
   const [desc, setDesc] = useState(props.descr);
-  const [label,setLabel]=useState(props.label);
+  const [label, setLabel] = useState(props.label);
 
   return (
     <Modal onClose={() => props.onClose()} >
@@ -18,22 +18,25 @@ const CardInfo = (props) => {
             onSubmit={(event) => {
               event.preventDefault();
               setEdit(false);
-              if (props.editcard) props.editcard(props.cardId, props.boardId, title, desc,label)
+              if (props.editcard) props.editcard(props.cardId, props.boardId, title, desc, label)
             }}>
 
             <input className="inputcc" type="text"
-              value={title==="No Title"?"":title}
-              placeholder="Title"
-              onChange={(e) => setTitle(e.target.value)}
+              name="card_edit_input_1"
+            value={title === "No Title" ? "" : title}
+            placeholder="Title"
+            onChange={(e) => setTitle(e.target.value)}
             />
             <textarea className="custom-scroll textareacc"
-              rows={10} 
+              rows={10}
               placeholder="Description"
+              name="card_edit_input_2"
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
             />
             <input className="inputcc" type="text"
               value={label}
+              name="card_edit_input_3"
               placeholder="Labels"
               onChange={(e) => setLabel(e.target.value)}
             />
@@ -51,11 +54,11 @@ const CardInfo = (props) => {
                 </span>
               </div>
               <div className="custom-scroll card_desc_infoplatecc">
-              <span>Description : </span>
+                <span>Description : </span>
                 {desc}
               </div>
               <div className="card_desc_infoplatecc">
-              <span>Labels : </span>
+                <span>Labels : </span>
                 {label}
               </div>
               <button className="buttoncc" onClick={() => setEdit(true)}>Edit</button>

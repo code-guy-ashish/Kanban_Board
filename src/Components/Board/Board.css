@@ -1,7 +1,7 @@
 .board {
     min-width: 290px;
     max-height: 100%;
-    height: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -28,7 +28,7 @@ span{
 
 .board_cards {
     flex: 1;
-    height: 100%;
+    height: fit-content;
     overflow-y: auto;
     background-color: #f8f8f8;
     display: flex;

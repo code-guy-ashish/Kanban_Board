@@ -12,8 +12,7 @@ function App() {
     cid: "",
     bid: "",
   });
-
-  const [c,setc]=useState("");
+  const [c, setc] = useState("");
 
   useEffect(() => {
     const local_boards = JSON.parse(localStorage.getItem("boards") ? localStorage.getItem("boards") : "[]");
@@ -25,8 +24,47 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("boards", boards.length !== 0 ? JSON.stringify(boards) : "[]");
+    boards?.forEach((board_item) => {
+      board_item.location_bound = document.getElementById(board_item.id).getBoundingClientRect();
+    })
   }, [boards])
 
+
+
+
+  const touchend = (scid, sbid, tclientX, tclientY) => {
+    let s_bIndex = boards.findIndex(item => item.id === sbid);
+    if (s_bIndex < 0) return;
+
+    let s_cIndex = boards[s_bIndex].cards?.findIndex(item => item.id === scid);
+    if (s_cIndex < 0) return;
+
+    // console.log("Source Card: ", boards[s_bIndex].cards[s_cIndex]);
+    // console.log("Click End Coordinates: (", tclientX, ",", tclientY, ")");
+
+    boards.forEach((item) => {
+      let xstart, xend, ystart, yend;
+
+      let t_board = boards.findIndex(i => i.id === item.id);
+
+      xstart = item.location_bound.x;
+      xend = item.location_bound.right;
+      ystart = item.location_bound.y;
+      yend = item.location_bound.bottom;
+      if (tclientX >= xstart && tclientX <= xend && tclientY >= ystart && tclientY <= yend) {
+        const tempBoards = [...boards];
+        const tempCard = tempBoards[s_bIndex].cards[s_cIndex];
+
+        tempBoards[s_bIndex].cards.splice(s_cIndex, 1);
+        tempBoards[t_board].cards.push(tempCard);
+
+        setBoards(tempBoards);
+        sortCards();
+      }
+    })
+
+
+  }
 
 
   const sortCards = () => {
@@ -108,12 +146,12 @@ function App() {
     setBoards(tempBoards);
   }
 
-  const vis_cid=(cid)=>{
-    console.log("cid",cid,typeof cid);
+  const vis_cid = (cid) => {
+    console.log("cid", cid, typeof cid);
     setTimeout(() => {
-      
+
       setc(cid.toString());
-      console.log("statec",c);
+      console.log("statec", c);
     }, 2000);
   }
   const handleDragEnter = (cid, bid) => {
@@ -125,8 +163,8 @@ function App() {
 
   const handleDragEnd = (cid, bid) => {
     let s_bIndex, s_cIndex, t_bIndex, t_cIndex;
-    if(cid!==null)
-    document.getElementById(cid).style.opacity="1";
+    if (cid !== null)
+      document.getElementById(cid).style.opacity = "1";
 
     s_bIndex = boards.findIndex(item => item.id === bid);
     if (s_bIndex < 0) return;
@@ -185,6 +223,7 @@ function App() {
                 handleDragEnd={handleDragEnd}
                 editcard={editCardValues}
                 v={vis_cid}
+                touchend={touchend}
               />
             })
           }

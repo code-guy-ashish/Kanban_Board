@@ -5,7 +5,7 @@ import Editable from "../Editable/Editable";
 
 const Board = (props) => {
   return (
-    <div  data-testid="boardid" className="board">
+    <div  data-testid="boardid" className="board" >
       <div className="board_top">
         <p className="board_top_title">
           {props.board?.title}
@@ -14,6 +14,7 @@ const Board = (props) => {
         <Trash2 onClick={() => props.removeBoard(props.board?.id)} />
       </div>
       <div
+        id={props.board?.id}
         onDragEnd={(e) => {
           props.handleDragEnd(e.target[Object.keys(e.target)[0]]["return"].key, props.board?.id);
         }}
@@ -33,6 +34,7 @@ const Board = (props) => {
               handleDragEnter={props.handleDragEnter}
               handleDragEnd={props.handleDragEnd}
               editcard={props.editcard}
+              touchend={props.touchend}
             />
           })
         }

@@ -1,4 +1,4 @@
-import { Clock, Trash2 } from "react-feather";
+import { AlignJustify, Clock, Trash2 } from "react-feather";
 import "./Card.css"
 import Tag from "../Tags/Tag";
 import CardInfo from "./Cardinfo/CardInfo";
@@ -11,7 +11,7 @@ const Card = (props) => {
 
     <div data-testid="cardid"
       id={props.card.id}
-    >
+      draggable>
       {showModal && <CardInfo
         onClose={() => setShowModal(false)}
         title={props.card.title}
@@ -23,6 +23,7 @@ const Card = (props) => {
         editcard={props.editcard}
       />}
       <div className="card" draggable
+
         onDragEnd={(e) => {
           e.target.classList.remove("is-dragging");
           props.handleDragEnd(props.card?.id, props.boardId)
@@ -43,8 +44,6 @@ const Card = (props) => {
           }
         }}
 
-
-
         onClick={() => setShowModal(true)}
       >
 
@@ -61,22 +60,55 @@ const Card = (props) => {
 
             }
           </div>
-          <Trash2 onClick={() => props.removeCard(props.card?.id, props.boardId)} />
-        </div>
-        <div className="card_title">
-          {props.card?.title}
-        </div>
-        <div className="card_desc">
-          {props.card?.desc}
-        </div>
-        <div className="card_footer">
           {
-            props.card?.date && (<p><Clock /> <span className="card_date">{props.card?.date}</span></p>)
+            window.innerWidth < 500 ?
+              <AlignJustify className="show_hidden" /> : ""
+
           }
-          {
-            <span className="timestamp">{props.card?.t_stamp}</span>
-          }
+          <Trash2 className="trash" onClick={() => props.removeCard(props.card?.id, props.boardId)} />
         </div>
+        <div
+          className="card_info_wrap"
+
+          onTouchStart={(e) => {
+            e.currentTarget.parentElement.classList.add("is-dragging")
+            e.currentTarget.parentElement.style.opacity = 0;
+
+            // console.log("You are inside Touch Start");
+            // console.log("Touch Start Event: ", e.currentTarget.parentElement);
+          }}
+
+
+          onTouchEnd={(e) => {
+            e.currentTarget.parentElement.classList.remove("is-dragging");
+            e.currentTarget.parentElement.style.opacity = 1;
+            // console.log("cancelable", e.cancelable);
+            if (e.cancelable) e.preventDefault();
+            // console.log("You are inside Touch End");
+            // console.log("Touch End Event: ", e.changedTouches[0]);
+
+            let x = e.changedTouches[0].clientX;
+            let y = e.changedTouches[0].clientY;
+
+            props.touchend(props.card?.id, props.boardId, x, y);
+          }}
+        >
+          <div className="card_title">
+            {props.card?.title}
+          </div>
+          <div className="card_desc">
+            {props.card?.desc}
+          </div>
+          <div className="card_footer">
+            {
+              props.card?.date && (<p><Clock /> <span className="card_date">{props.card?.date}</span></p>)
+            }
+            {
+              <span className="timestamp">{props.card?.t_stamp}</span>
+            }
+          </div>
+        </div>
+
       </div>
     </div>
   )
